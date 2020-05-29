@@ -3,11 +3,12 @@
     <h1>Vue To-Do</h1>
     <input type="text" placeholder="Add To Do..." v-model="userInput">
     <button type="button" v-on:click="addTodo">Add {{ userInput }}</button>
+    <hr>
     <ul>
       <li
         v-for="todo in todos"
         v-bind:class="{ completed: todo.completed }"
-        v-on:click="completedTodo(todo)">{{ todo.name }}</li>
+        v-on:click="changeState(todo)">{{ todo.name }}</li>
     </ul>
   </div>
 </template>
@@ -31,27 +32,24 @@ export default {
         name: this.userInput,
         completed: false
       }
-      this.todos.push(newTodo)
+      this.todos.unshift(newTodo)
+      this.userInput = ''
     },
-    deleteTodo (todo) {
+    changeState (todo) {
       const id = todo.id
       for (let i = 0; i < this.todos.length; i++) {
         if (this.todos[i].id === id) {
-          this.todos.splice(i, 1)
-          break
-        }
-      }
-    },
-    completedTodo (todo) {
-      const id = todo.id
-      for (let i = 0; i < this.todos.length; i++) {
-        if (this.todos[i].id === id) {
+          if (this.todos[i].completed) {
+            this.todos.splice(i, 1)
+            break
+          }
           this.todos[i].completed = !this.todos[i].completed
-          console.log(this.todos[i].completed)
+          this.todos.splice(i, 1)
+          this.todos.push(todo)
           break
         }
       }
-    }
+    },
   }
 }
 </script>
@@ -74,6 +72,7 @@ $font: 'Cairo', sans-serif;
   h1 {
     color: black;
     background-color: $primary-color;
+    font-size: 3rem;
     min-width: 30%;
     margin-bottom: 3rem;
     border-radius: 100px;
@@ -119,6 +118,11 @@ $font: 'Cairo', sans-serif;
     }
   }
 
+  hr {
+    min-width: 50%;
+    border: 0.15rem solid $primary-color;
+  }
+
   ul {
     list-style-type: none;
     padding-inline-start: 0;
@@ -132,18 +136,19 @@ $font: 'Cairo', sans-serif;
       text-align: center;
       font-size: 1.5rem;
       cursor: pointer;
-      border: 1px solid transparent;
+      border: 0.15rem solid $primary-color;
       border-radius: 50px;
       margin: 1rem 0;
 
       &:hover {
-        border: 1px solid $primary-color;
+        background-color: $primary-color;
+        border: 0.15rem solid $primary-color;
+        color: black;
       }
     }
 
     .completed {
       background-color: $primary-color;
-      border: 1px solid $primary-color;
       color: black;
     }
   }
