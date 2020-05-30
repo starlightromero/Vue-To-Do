@@ -3,7 +3,7 @@
     <h1>Vue To-Do</h1>
     <input type="text" placeholder="Add To Do..." v-model="userInput">
     <button type="button" v-on:click="addTodo">Add {{ userInput }}</button>
-    <hr>
+    <hr />
     <ul>
       <li
         v-for="todo in todos"
@@ -49,7 +49,7 @@ export default {
           break
         }
       }
-    },
+    }
   }
 }
 </script>
@@ -105,6 +105,7 @@ $font: 'Cairo', sans-serif;
     background: none;
     background-color: none;
     background-image: none;
+    outline: none;
     min-width: 30%;
     cursor: pointer;
     padding: 0 2rem;
@@ -112,7 +113,7 @@ $font: 'Cairo', sans-serif;
     -webkit-appearance: none;
     -moz-appearance: none;
 
-    &:hover{
+    &:hover {
         color: black;
         background-color: $primary-color;
     }
@@ -120,6 +121,7 @@ $font: 'Cairo', sans-serif;
 
   hr {
     min-width: 50%;
+    background-color: $primary-color;
     border: 0.15rem solid $primary-color;
   }
 
