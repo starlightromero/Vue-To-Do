@@ -28,7 +28,7 @@ export default {
         return
       }
       const newTodo = {
-        id: _.uniqueId(),
+        id: Math.random(),
         name: this.userInput,
         completed: false
       }
